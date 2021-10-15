@@ -1,0 +1,227 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap"); */
+
+@media (max-width: 512px) {
+  .main {
+    padding: 10px !important;
+    padding-bottom: 200px !important;
+  }
+  .mainCard {
+    background-color: #e5e5e5 !important;
+    border: #e5e5e5;
+    margin-top: 70px !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 10px !important;
+    box-shadow: none !important;
+  }
+  .everyControl {
+    background-color: #e5e5e5;
+  }
+  .everyControl:focus {
+    background-color: #e5e5e5;
+    box-shadow: none !important;
+  }
+  .btnSubmitGoogle {
+    background-color: #e5e5e5 !important;
+  }
+  .btnSubmitGoogle:hover {
+    background-color: #ffffff !important;
+    color: #7e98df;
+    border: #7e98df 1px solid !important;
+  }
+  .pass {
+    position: absolute;
+    right: 40px !important;
+    top: 268px !important;
+    cursor: pointer;
+  }
+}
+.pass {
+  position: absolute;
+  right: 100px;
+  top: 295px;
+  cursor: pointer;
+}
+.alert {
+  height: 60px;
+}
+.error {
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+}
+.main {
+  background: #e5e5e5;
+  padding: 50px;
+}
+.mainCard {
+  width: 500px;
+  height: 710px;
+  background: #ffffff;
+  box-shadow: 0px 20px 20px rgba(126, 152, 223, 0.05);
+  border-radius: 30px;
+  margin: 0 auto;
+  padding: 40px 70px;
+}
+.mainCard1 {
+  width: 500px;
+  height: 780px;
+  background: #ffffff;
+  box-shadow: 0px 20px 20px rgba(126, 152, 223, 0.05);
+  border-radius: 30px;
+  margin: 0 auto;
+  padding: 5px 5px;
+}
+.ArrowBot {
+  width: 500px;
+  height: 780px;
+}
+.cardForm {
+  border-radius: 15px;
+}
+.login {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 26px;
+  text-align: left;
+  letter-spacing: -0.165px;
+  color: #7e98df;
+  /* margin-bottom: 35px; */
+  border: #e5e5e5;
+}
+.iconSet {
+  margin-left: 296px;
+}
+.iconQuest {
+  margin-left: 12px;
+}
+.iconArrowBot {
+  text-align: center;
+}
+.subLogin {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #232323;
+  margin-bottom: 35px;
+}
+.everyLabel {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #848484;
+  opacity: 0.75;
+}
+.everyControl {
+  border: white;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #232323;
+  padding: 5px;
+  height: 40px;
+}
+.everyControl::placeholder {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #232323;
+  border-bottom: 1px solid black;
+}
+.everyControl:focus {
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 255),
+    0 0 8px rgba(255, 255, 255, 255);
+}
+.forgot {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: right;
+  color: #7e98df;
+  text-decoration: none;
+  float: right;
+  margin-top: 35px;
+}
+.resetBtn:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
+.btnSubmit {
+  background: #7e98df;
+  border-radius: 70px;
+  border: #7e98df 1px solid;
+  width: 100%;
+  height: 60px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  color: #ffffff;
+  margin-top: 35px;
+}
+.btnSubmitGoogle {
+  background: white;
+  border-radius: 70px;
+  border: #7e98df 1px solid;
+  width: 100%;
+  height: 60px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  color: #7e98df;
+  margin-top: 35px;
+}
+.btnSubmitGoogle::before {
+  padding: 12px;
+}
+.btnSubmitGoogle:hover {
+  background-color: #6e96da;
+  border: #7e98df;
+}
+.btnSubmitGoogle:focus {
+  background-color: #7e98df;
+  border: #7e98df;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 255),
+    0 0 8px rgba(255, 255, 255, 255);
+}
+.loginWith {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  color: #848484;
+  margin-top: 35px;
+  margin-bottom: 0px;
+}
+.signUp {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #313131;
+  margin-top: 35px;
+  text-align: center;
+}
+.linkSignUp {
+  text-decoration: none;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #7e98df;
+  margin-top: 35px;
+  text-align: center;
+}
+.bgDiv {
+  text-align: center;
+}
