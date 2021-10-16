@@ -5,6 +5,8 @@ import Slider from 'react-slick';
 import { Link } from "react-router-dom";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import NavbarComponent from "../../../components/Navbar/Navbar";
+
 // import NavbarComponent from "../../../components/Navbar/Navbar";
 import FooterComponent from "../../../components/Footer/Footer";
 
@@ -68,10 +70,10 @@ class Landing extends Component {
     const { navSet, navOrder } = this.state
     return (
       <>
-        {/* <NavbarComponent isLanding={this.state.isLanding} /> */}
+        <NavbarComponent />
         <Container className={styles.main} fluid>
 
-          <div className={`${styles.bgDiv} p-4`}>
+          <div className={`${styles.bgDiv} p-3`}>
             {/* <div className="d-flex flex-row"> */}
             <Button
               className={`${styles.info} ${navSet ? styles.selectedNavMenu : styles.unselectedNavMenu

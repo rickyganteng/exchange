@@ -8,8 +8,9 @@ import 'slick-carousel/slick/slick-theme.css';
 // import NavbarComponent from "../../../components/Navbar/Navbar";
 import iconSet from "../../../assets/decorations/nut.svg"
 import iconQuest from "../../../assets/decorations/question-circle.svg"
-import iconArrowBot from "../../../assets/decorations/arrow-down-circle.svg"
+import iconArrowPlus from "../../../assets/decorations/plus-circle.svg"
 import IconLeft from "../../../assets/decorations/arrow-left.svg"
+import NavbarComponent from "../../../components/Navbar/Navbar";
 
 //
 import FooterComponent from "../../../components/Footer/Footer";
@@ -51,7 +52,9 @@ class Landing extends Component {
   changeText = (event) => {
     this.setState({ [event.target.name]: "%" + event.target.value + "%" });
   };
-
+  goback = () => {
+    this.props.history.goBack();
+  }
   changeTextForm = (event) => {
     console.log(event.target.value);
     this.setState({
@@ -73,10 +76,10 @@ class Landing extends Component {
     const { navSet, navOrder } = this.state
     return (
       <>
-        {/* <NavbarComponent isLanding={this.state.isLanding} /> */}
+        <NavbarComponent />
         <Container className={styles.main} fluid>
 
-          <div className={`${styles.bgDiv} p-4`}>
+          <div className={`${styles.bgDiv} p-3`}>
             {/* <div className="d-flex flex-row"> */}
             <Button
               className={`${styles.info} ${navSet ? styles.selectedNavMenu : styles.unselectedNavMenu
@@ -107,7 +110,7 @@ class Landing extends Component {
               <h1 className={styles.login}>
                 <Row>
                   <Col xs={2}>
-                    <span className={styles.iconQuest}>
+                    <span className={styles.iconQuest} onClick={() => this.goback()}>
                       <img src={IconLeft} alt="map-pin" />
                     </span>
                   </Col>
@@ -154,9 +157,9 @@ class Landing extends Component {
                   </Row>
                 </Card>
                 <br />
-                <div className={styles.iconArrowBot}>
+                <div className={styles.iconArrowPlus}>
                   <span >
-                    <img src={iconArrowBot} alt="map-pin" />
+                    <img src={iconArrowPlus} alt="map-pin" />
                   </span>
                 </div>
                 <br />

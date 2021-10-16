@@ -5,11 +5,14 @@ import Slider from 'react-slick';
 import { Link } from "react-router-dom";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-// import NavbarComponent from "../../../components/Navbar/Navbar";
+import NavbarComponent from "../../../components/Navbar/Navbar";
 
 import iconSet from "../../../assets/decorations/nut.svg"
 import iconQuest from "../../../assets/decorations/card-list.svg"
 import iconArrowBot from "../../../assets/decorations/arrow-down-circle.svg"
+import PopUp from "../../../components/popupSlipPage/popupSlipPage"
+
+
 //
 import Recruiter1 from "../../../assets/images/394260100b438df48a885f4de8255d6c.jpg";
 import Recruiter2 from "../../../assets/images/52b72a55a079dca3c59ba0db0eb236aa.jpg";
@@ -28,28 +31,21 @@ class Landing extends Component {
 
     this.state = {
       isLanding: true,
-      navSet: true,
+      navSet: false,
       navOrder: false,
+      popSet: true,
+      popOrder: false,
       form: {
-        user: "",
+        from: "",
+        to: "",
       },
     };
   }
-  handeNav = (event) => {
-    console.log(event.target.name);
-    const name = event.target.name;
-    this.setState({
-      [name.split(" ")[0]]: true,
-      [name.split(" ")[1]]: false,
-    });
+  handeNav = () => {
+    this.props.history.push(`/`);
   };
-  handeNav1 = (event) => {
-    console.log(event.target.name);
-    const name = event.target.name;
-    this.setState({
-      [name.split(" ")[0]]: true,
-      [name.split(" ")[1]]: false,
-    });
+  handeNav1 = () => {
+
     this.props.history.push(`/liq`);
 
   };
@@ -69,6 +65,12 @@ class Landing extends Component {
   handleAddLiq = () => {
     this.props.history.push(`/addliq`);
   }
+  setSlip = (event) => {
+    this.setState({
+      navSet: true,
+    });
+    console.log("tol");
+  }
   render() {
     const settings = {
       dots: true,
@@ -77,19 +79,18 @@ class Landing extends Component {
       slidesToShow: 3,
       slidesToScroll: 1
     };
-    const { user } = this.state.form
-    const { navSet, navOrder } = this.state
+    const { from, to } = this.state.form
+    const { navSet, navOrder, popSet, popOrder } = this.state
     return (
       <>
-        {/* <NavbarComponent isLanding={this.state.isLanding} /> */}
+        <NavbarComponent />
         <Container className={styles.main} fluid>
           <div className={`${styles.bgDiv} p-3`}>
             {/* <div className="d-flex flex-row"> */}
             <Button
               className={`${styles.info} ${navSet ? styles.selectedNavMenu : styles.unselectedNavMenu
                 }`}
-              variant="light"
-              name="navSet navOrder"
+
               onClick={(event) => this.handeNav(event)}
             >
               Swap
@@ -99,8 +100,7 @@ class Landing extends Component {
                 ? styles.selectedNavMenu
                 : styles.unselectedNavMenu
                 } ml-5`}
-              variant="light"
-              name="navOrder navSet"
+
               onClick={(event) => this.handeNav1(event)}
             >
               Liquidity
@@ -112,7 +112,10 @@ class Landing extends Component {
           >
             <Card.Body>
               <h1 className={styles.login}>Exchange
-                <span className={styles.iconSet}>
+                <span
+                  className={styles.iconSet}
+                  onClick={(event) => this.setSlip(event)}
+                >
                   <img src={iconSet} alt="map-pin" />
                 </span>
                 <span className={styles.iconQuest}>
@@ -121,6 +124,130 @@ class Landing extends Component {
               </h1>
               <p className={styles.subLogin}>Trade tokens in an instant</p>
               <hr />
+              {navSet ? (
+                <PopUp />
+              ) : ("")}
+
+
+              {/* {navSet ? (
+                <div>
+                  <p className={`${styles.info}`}>Details Information</p>
+                  <hr />
+                  <Form
+                    onSubmit={this.handleUpdateProfile}
+                    className={`${styles.form} mb-5`}
+                  >
+                    <Form.Row>
+                      <Form.Group as={Col}>
+                        <Form.Label>First Name</Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="firstName"
+                          placeholder="your first name"
+                          value={from}
+                          onChange={(event) => this.changeText(event)}
+                        />
+                      </Form.Group>
+
+                      <Form.Group as={Col}>
+                        <Form.Label>Last Name</Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="lastName"
+                          placeholder="your last name"
+                          value={from}
+                          onChange={(event) => this.changeText(event)}
+                        />
+                      </Form.Group>
+                    </Form.Row>
+
+                    <Form.Row>
+                      <Form.Group as={Col}>
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control
+                          type="email"
+                          name="userEmail"
+                          placeholder="your email"
+                          value={from}
+                          onChange={(event) => this.changeText(event)}
+                        />
+                      </Form.Group>
+
+                      <Form.Group as={Col}>
+                        <Form.Label>Phone Number</Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="userPhoneNumber"
+                          placeholder="your phone number"
+                          value={from}
+                          onChange={(event) => this.changeText(event)}
+                        />
+                      </Form.Group>
+                    </Form.Row>
+                    <Form.Group>
+                      <Form.Label>Profile Picture</Form.Label>
+                      <Form.Control
+                        type="file"
+                        onChange={(event) => this.handleImage(event)}
+                      />
+                    </Form.Group>
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      className={`${styles.btUpdate} mt-3`}
+                    >
+                      Update Changes
+                    </Button>
+
+                  </Form>
+                  <p className={`${styles.info}`}>Account and Privacy</p>
+                  <hr />
+                  <Form
+                    onSubmit={this.handleUpdatePassword}
+                    className={styles.form}
+                  >
+                    <Form.Row>
+                      <Form.Group as={Col}>
+                        <Form.Label>New Password</Form.Label>
+                        <Form.Control
+                          type="password"
+                          name="userPassword"
+                          placeholder="enter new password"
+                          onChange={(event) => this.changeText(event)}
+                        />
+                      </Form.Group>
+                      <Form.Group as={Col}>
+                        <Form.Label>Confirm Password</Form.Label>
+                        <Form.Control
+                          type="password"
+                          name="confirmUserPassword"
+                          placeholder="confirm your new password"
+                          onChange={(event) => this.changeText(event)}
+                        />
+                      </Form.Group>
+                    </Form.Row>
+
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      className={`${styles.btUpdate} mt-3`}
+                    >
+                      Change Password
+                    </Button>
+                  </Form>
+                </div>
+              ) : (
+                "")} */}
+
+
+
+
+
+
+
+
+
+
               <Form>
                 <Card className={styles.cardForm}>
                   <Row>
@@ -128,11 +255,11 @@ class Landing extends Component {
                       <Form.Group className="mb-3">
                         <Form.Label className={styles.everyLabel}>From</Form.Label>
                         <Form.Control
-                          type="email"
+                          type="text"
                           placeholder="0.0"
-                          name="userEmail"
-                          value={user}
-                          onChange={(event) => this.changeText(event)}
+                          name="from"
+                          value={from}
+                          onChange={(event) => this.changeTextForm(event)}
                           className={styles.everyControl}
                           required
                         />
@@ -144,7 +271,7 @@ class Landing extends Component {
                         type="submit"
                         className={styles.btnSubmit}
                       >
-                        Unlock Wallet
+                        Coin
                       </Button>
                     </Col>
                   </Row>
@@ -166,10 +293,10 @@ class Landing extends Component {
                           // type={password ? "text" : "password"}
                           placeholder="0.0"
                           className={styles.everyControl}
-                          value={user}
-                          name="userPassword"
+                          value={to}
+                          name="to"
                           required
-                          onChange={(event) => this.changeText(event)}
+                          onChange={(event) => this.changeTextForm(event)}
                         />
 
 
@@ -181,7 +308,7 @@ class Landing extends Component {
                         type="submit"
                         className={styles.btnSubmit}
                       >
-                        Unlock Wallet
+                        Coin
                       </Button>
                     </Col>
                   </Row>

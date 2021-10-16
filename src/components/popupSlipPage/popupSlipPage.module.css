@@ -225,3 +225,9 @@
 .bgDiv {
   text-align: center;
 }
+.radius {
+  border-radius: 300px;
+}
+.formbottom {
+  padding-top: 15px;
+}
