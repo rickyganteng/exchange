@@ -65,12 +65,17 @@
 }
 .mainCard1 {
   width: 500px;
-  height: 780px;
+  height: 550px;
   background: #ffffff;
   box-shadow: 0px 20px 20px rgba(126, 152, 223, 0.05);
   border-radius: 30px;
   margin: 0 auto;
   padding: 5px 5px;
+}
+.modalshow {
+  /* width: 1300px; */
+  height: 400px;
+  margin-top: 100px;
 }
 .login {
   font-style: normal;
@@ -80,7 +85,7 @@
   text-align: left;
   letter-spacing: -0.165px;
   color: #7e98df;
-  margin-bottom: 35px;
+  margin-bottom: 5px;
 }
 .subLogin {
   font-style: normal;
@@ -88,7 +93,10 @@
   font-size: 14px;
   line-height: 17px;
   color: #232323;
-  margin-bottom: 35px;
+  margin-bottom: 1px;
+}
+.iconQuest {
+  margin-left: 10px;
 }
 .everyLabel {
   font-style: normal;
@@ -147,7 +155,10 @@
   line-height: 19px;
   text-align: center;
   color: #ffffff;
-  margin-top: 35px;
+  margin-top: 15px;
+}
+.iconSet {
+  margin-left: 293px;
 }
 .btnSubmitGoogle {
   background: white;
@@ -207,4 +218,7 @@
 }
 .bgDiv {
   text-align: center;
+}
+.formbottom {
+  margin-top: 15px;
 }

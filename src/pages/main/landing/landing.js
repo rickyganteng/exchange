@@ -1,43 +1,47 @@
 import React, { Component } from "react";
-import { Button, Card, Col, Row, Container, Form, Alert } from "react-bootstrap";
+import { Button, Card, Col, Row, Container, Form, Modal } from "react-bootstrap";
 import styles from "./landing.module.css";
-import Slider from 'react-slick';
-import { Link } from "react-router-dom";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import NavbarComponent from "../../../components/Navbar/Navbar";
+import Footer from "../../../components/Footer/Footer"
 
 import iconSet from "../../../assets/decorations/nut.svg"
-import iconQuest from "../../../assets/decorations/card-list.svg"
+import iconList from "../../../assets/decorations/card-list.svg"
+import iconQuest from "../../../assets/decorations/question-circle.svg"
 import iconArrowBot from "../../../assets/decorations/arrow-down-circle.svg"
-import PopUp from "../../../components/popupSlipPage/popupSlipPage"
 
 
-//
-import Recruiter1 from "../../../assets/images/394260100b438df48a885f4de8255d6c.jpg";
-import Recruiter2 from "../../../assets/images/52b72a55a079dca3c59ba0db0eb236aa.jpg";
-import Recruiter3 from "../../../assets/images/e0330952e672d8d40924c01d226e2f96.jpg";
 
-import DotDecoration from "../../../assets/decorations/dots.svg";
-import HeroImage from "../../../assets/images/hero-img.jpg";
-import LandingImage1 from "../../../assets/images/landing-img.jpg";
-import LandingImage2 from "../../../assets/images/landing-img2.jpg";
-import TickPurple from "../../../assets/icons/tick-purple.svg";
-import TickOrange from "../../../assets/icons/tick-orange.svg";
+
+
 
 class Landing extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      coin: [
+        "BTCB",
+        "BUSD",
+        "Cake",
+        "CMD",
+        "DOGE",
+        "ETH",
+        "TRX",
+        "USDT"
+      ],
       isLanding: true,
       navSet: false,
       navOrder: false,
       popSet: true,
       popOrder: false,
+      show: false,
+      showModal1: false,
       form: {
         from: "",
         to: "",
+        angka: 0,
       },
     };
   }
@@ -52,7 +56,12 @@ class Landing extends Component {
   changeText = (event) => {
     this.setState({ [event.target.name]: "%" + event.target.value + "%" });
   };
-
+  handleClose = () => {
+    this.setState({
+      show: false,
+      showModal1: false,
+    });
+  };
   changeTextForm = (event) => {
     console.log(event.target.value);
     this.setState({
@@ -65,24 +74,137 @@ class Landing extends Component {
   handleAddLiq = () => {
     this.props.history.push(`/addliq`);
   }
-  setSlip = (event) => {
+  setSlip = () => {
     this.setState({
-      navSet: true,
+      show: true,
     });
-    console.log("tol");
+  }
+  setCoin = () => {
+    this.setState({
+      showModal1: true,
+    });
   }
   render() {
-    const settings = {
-      dots: true,
-      autoplay: true,
-      infinite: true,
-      slidesToShow: 3,
-      slidesToScroll: 1
-    };
-    const { from, to } = this.state.form
-    const { navSet, navOrder, popSet, popOrder } = this.state
+    const { from, to, angka } = this.state.form
+    const { navSet, navOrder, show, showModal1 } = this.state
     return (
       <>
+        <Modal className={styles.modalshow} show={showModal1} onHide={this.handleClose}>
+          <Container >
+            <Modal.Title className={styles.title}>Select a token  <img src={iconQuest} alt="map-pin" title="hehe" />
+            </Modal.Title>
+            <br />
+            <Col >
+              <Form className={styles.searchInput}>
+                <Form.Group>
+                  <Form.Control
+                    type="text"
+                    placeholder="Search Tokens"
+                    name="search"
+                    onChange={(event) => this.changeTextForm(event)}
+                  />
+                </Form.Group>
+              </Form>
+            </Col>
+
+            <Modal.Title className={styles.title}>Token Name
+              <div className={styles.iconArrow}>
+                <span >
+                  <img src={iconArrowBot} alt="map-pin" />
+                </span>
+              </div>
+            </Modal.Title>
+            <hr />
+            <div >
+              {this.state.coin.map((item, index) => {
+                console.log(item)
+                return (
+                  <p> {item}</p>
+                );
+
+              })}
+            </div>
+          </Container>
+        </Modal>
+        <Modal className={styles.modalshow} show={show} onHide={this.handleClose}>
+          <Container >
+            <Modal.Title className={styles.title}>Setting</Modal.Title>
+            <hr />
+            <Form
+              onSubmit={this.handleUpdateProfile}
+              className={`${styles.form} mb-5`}
+            >
+              <p>Slippage tolerance :</p>
+
+              <Form.Row xs={10}>
+                <Col xs={2}>
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    className={`${styles.btUpdate} mt-3`}
+                  >
+                    1%
+                  </Button>
+                </Col>
+                <Col xs={2}>
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    className={`${styles.btUpdate} mt-3`}
+                  >
+                    5%
+                  </Button>
+                </Col>
+                <Col xs={2}>
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    className={`${styles.btUpdate} mt-3`}
+                  >
+                    13%
+                  </Button>
+                </Col>
+
+                <Col className={styles.formbottom}>
+                  <Form.Control
+                    type="number"
+                    name="angka"
+                    placeholder="SlipPage"
+                    value={angka}
+                    onChange={(event) => this.changeTextForm(event)}
+                  />
+                </Col>
+
+              </Form.Row>
+              <br />
+              <Form.Row>
+                <Form.Group as={Col} md="5">
+                  <Form.Label>Trancsaction deadline :</Form.Label>
+                  <Form.Control
+                    type="number"
+                    name="angka"
+                    placeholder="Minutes"
+                    value={angka}
+                    onChange={(event) => this.changeTextForm(event)}
+                  />
+                </Form.Group>
+
+
+
+              </Form.Row>
+
+              <Button
+                variant="primary"
+                type="submit"
+                className={`${styles.btUpdate} mt-3`}
+              >
+                Update Changes
+              </Button>
+
+            </Form>
+
+          </Container>
+        </Modal>
         <NavbarComponent />
         <Container className={styles.main} fluid>
           <div className={`${styles.bgDiv} p-3`}>
@@ -114,139 +236,16 @@ class Landing extends Component {
               <h1 className={styles.login}>Exchange
                 <span
                   className={styles.iconSet}
-                  onClick={(event) => this.setSlip(event)}
+                  onClick={() => this.setSlip()}
                 >
-                  <img src={iconSet} alt="map-pin" />
+                  <img src={iconSet} alt="map-pin" title="Setting" />
                 </span>
                 <span className={styles.iconQuest}>
-                  <img src={iconQuest} alt="map-pin" />
+                  <img src={iconList} alt="map-pin" title="Recent Trancsaction" />
                 </span>
               </h1>
               <p className={styles.subLogin}>Trade tokens in an instant</p>
               <hr />
-              {navSet ? (
-                <PopUp />
-              ) : ("")}
-
-
-              {/* {navSet ? (
-                <div>
-                  <p className={`${styles.info}`}>Details Information</p>
-                  <hr />
-                  <Form
-                    onSubmit={this.handleUpdateProfile}
-                    className={`${styles.form} mb-5`}
-                  >
-                    <Form.Row>
-                      <Form.Group as={Col}>
-                        <Form.Label>First Name</Form.Label>
-                        <Form.Control
-                          type="text"
-                          name="firstName"
-                          placeholder="your first name"
-                          value={from}
-                          onChange={(event) => this.changeText(event)}
-                        />
-                      </Form.Group>
-
-                      <Form.Group as={Col}>
-                        <Form.Label>Last Name</Form.Label>
-                        <Form.Control
-                          type="text"
-                          name="lastName"
-                          placeholder="your last name"
-                          value={from}
-                          onChange={(event) => this.changeText(event)}
-                        />
-                      </Form.Group>
-                    </Form.Row>
-
-                    <Form.Row>
-                      <Form.Group as={Col}>
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control
-                          type="email"
-                          name="userEmail"
-                          placeholder="your email"
-                          value={from}
-                          onChange={(event) => this.changeText(event)}
-                        />
-                      </Form.Group>
-
-                      <Form.Group as={Col}>
-                        <Form.Label>Phone Number</Form.Label>
-                        <Form.Control
-                          type="text"
-                          name="userPhoneNumber"
-                          placeholder="your phone number"
-                          value={from}
-                          onChange={(event) => this.changeText(event)}
-                        />
-                      </Form.Group>
-                    </Form.Row>
-                    <Form.Group>
-                      <Form.Label>Profile Picture</Form.Label>
-                      <Form.Control
-                        type="file"
-                        onChange={(event) => this.handleImage(event)}
-                      />
-                    </Form.Group>
-                    <Button
-                      variant="primary"
-                      type="submit"
-                      className={`${styles.btUpdate} mt-3`}
-                    >
-                      Update Changes
-                    </Button>
-
-                  </Form>
-                  <p className={`${styles.info}`}>Account and Privacy</p>
-                  <hr />
-                  <Form
-                    onSubmit={this.handleUpdatePassword}
-                    className={styles.form}
-                  >
-                    <Form.Row>
-                      <Form.Group as={Col}>
-                        <Form.Label>New Password</Form.Label>
-                        <Form.Control
-                          type="password"
-                          name="userPassword"
-                          placeholder="enter new password"
-                          onChange={(event) => this.changeText(event)}
-                        />
-                      </Form.Group>
-                      <Form.Group as={Col}>
-                        <Form.Label>Confirm Password</Form.Label>
-                        <Form.Control
-                          type="password"
-                          name="confirmUserPassword"
-                          placeholder="confirm your new password"
-                          onChange={(event) => this.changeText(event)}
-                        />
-                      </Form.Group>
-                    </Form.Row>
-
-                    <Button
-                      variant="primary"
-                      type="submit"
-                      className={`${styles.btUpdate} mt-3`}
-                    >
-                      Change Password
-                    </Button>
-                  </Form>
-                </div>
-              ) : (
-                "")} */}
-
-
-
-
-
-
-
-
-
 
               <Form>
                 <Card className={styles.cardForm}>
@@ -265,11 +264,12 @@ class Landing extends Component {
                         />
                       </Form.Group>
                     </Col>
-                    <Col>
+                    <Col className={styles.buttonCoin}>
                       <Button
                         variant="primary"
                         type="submit"
                         className={styles.btnSubmit}
+                        onClick={() => this.setCoin()}
                       >
                         Coin
                       </Button>
@@ -302,34 +302,45 @@ class Landing extends Component {
 
                       </Form.Group>
                     </Col>
-                    <Col>
+                    <Col className={styles.buttonCoin}>
                       <Button
                         variant="primary"
                         type="submit"
                         className={styles.btnSubmit}
+                        onClick={() => this.setCoin()}
                       >
                         Coin
                       </Button>
                     </Col>
                   </Row>
                 </Card>
+                <br />
+                <Row>
+                  <Col>
+                    <p>SlipPage tolerance</p>
+                  </Col>
+                  <Col >
+                    <p className={styles.textRight}>5%</p>
+                  </Col>
+                </Row>
                 <Button
                   variant="primary"
                   type="submit"
-                  className={styles.btnSubmit}
+                  className={styles.btnSubmitSlip}
                 >
                   Unlock Wallet
                 </Button>
               </Form>
-
             </Card.Body>
-
-
           </Card>
-        </Container>
+        </Container >
+        <Footer />
       </>
     );
   }
 }
 
 export default Landing;
+
+
+

@@ -10,6 +10,15 @@
 }
 .logo {
   height: 2.5em;
+  margin-left: 20px;
+}
+.logoGlobe {
+  height: 2.5em;
+  margin-left: 750px;
+}
+.logoProfile {
+  height: 3em;
+  /* margin-left: 0px; */
 }
 .footerText {
   font-size: 1.4em;

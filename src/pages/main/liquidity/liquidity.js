@@ -1,25 +1,14 @@
 import React, { Component } from "react";
-import { Button, Card, Col, Row, Container, Form, Alert } from "react-bootstrap";
+import { Button, Card, Col, Row, Container, Form, Modal } from "react-bootstrap";
 import styles from "./liquidity.module.css";
-import Slider from 'react-slick';
-import { Link } from "react-router-dom";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import Footer from "../../../components/Footer/Footer"
 import NavbarComponent from "../../../components/Navbar/Navbar";
+import iconQuest from "../../../assets/decorations/question-circle.svg"
+import iconSet from "../../../assets/decorations/nut.svg"
+import iconList from "../../../assets/decorations/card-list.svg"
 
-// import NavbarComponent from "../../../components/Navbar/Navbar";
-import FooterComponent from "../../../components/Footer/Footer";
-
-import Recruiter1 from "../../../assets/images/394260100b438df48a885f4de8255d6c.jpg";
-import Recruiter2 from "../../../assets/images/52b72a55a079dca3c59ba0db0eb236aa.jpg";
-import Recruiter3 from "../../../assets/images/e0330952e672d8d40924c01d226e2f96.jpg";
-
-import DotDecoration from "../../../assets/decorations/dots.svg";
-import HeroImage from "../../../assets/images/hero-img.jpg";
-import LandingImage1 from "../../../assets/images/landing-img.jpg";
-import LandingImage2 from "../../../assets/images/landing-img2.jpg";
-import TickPurple from "../../../assets/icons/tick-purple.svg";
-import TickOrange from "../../../assets/icons/tick-orange.svg";
 
 class Landing extends Component {
   constructor(props) {
@@ -29,8 +18,10 @@ class Landing extends Component {
       isLanding: true,
       navSet: true,
       navOrder: false,
+      user: false,
       form: {
         user: "",
+        from: "",
       },
     };
   }
@@ -58,18 +49,100 @@ class Landing extends Component {
   handleAddLiq = () => {
     this.props.history.push(`/addliq`);
   }
+  setSlip = () => {
+    this.setState({
+      show: true,
+    });
+  }
+  handleClose = () => {
+    this.setState({
+      show: false,
+    });
+  };
   render() {
-    const settings = {
-      dots: true,
-      autoplay: true,
-      infinite: true,
-      slidesToShow: 3,
-      slidesToScroll: 1
-    };
-    const { user } = this.state.form
-    const { navSet, navOrder } = this.state
+
+    const { navSet, navOrder, show, from } = this.state
     return (
       <>
+        <Modal className={styles.modalshow} show={show} onHide={this.handleClose}>
+          <Container >
+            <Modal.Title className={styles.title}>Setting</Modal.Title>
+            <hr />
+            <Form
+              onSubmit={this.handleUpdateProfile}
+              className={`${styles.form} mb-5`}
+            >
+              <p>Slippage tolerance :</p>
+
+              <Form.Row xs={10}>
+                <Col xs={2}>
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    className={`${styles.btUpdate} mt-3`}
+                  >
+                    1%
+                  </Button>
+                </Col>
+                <Col xs={2}>
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    className={`${styles.btUpdate} mt-3`}
+                  >
+                    5%
+                  </Button>
+                </Col>
+                <Col xs={2}>
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    className={`${styles.btUpdate} mt-3`}
+                  >
+                    13%
+                  </Button>
+                </Col>
+
+                <Col className={styles.formbottom}>
+                  <Form.Control
+                    type="number"
+                    name="firstName"
+                    placeholder="number"
+                    value={from}
+                    onChange={(event) => this.changeText(event)}
+                  />
+                </Col>
+
+              </Form.Row>
+              <br />
+              <Form.Row>
+                <Form.Group as={Col} md="5">
+                  <Form.Label>Trancsaction deadline :</Form.Label>
+                  <Form.Control
+                    type="number"
+                    name="lastName"
+                    placeholder="Minutes"
+                    value={from}
+                    onChange={(event) => this.changeText(event)}
+                  />
+                </Form.Group>
+
+
+
+              </Form.Row>
+
+              <Button
+                variant="primary"
+                type="submit"
+                className={`${styles.btUpdate} mt-3`}
+              >
+                Update Changes
+              </Button>
+
+            </Form>
+
+          </Container>
+        </Modal>
         <NavbarComponent />
         <Container className={styles.main} fluid>
 
@@ -78,8 +151,7 @@ class Landing extends Component {
             <Button
               className={`${styles.info} ${navSet ? styles.selectedNavMenu : styles.unselectedNavMenu
                 }`}
-              variant="light"
-              name="navSet navOrder"
+
               onClick={(event) => this.handeNav(event)}
             >
               Swap
@@ -89,11 +161,11 @@ class Landing extends Component {
                 ? styles.selectedNavMenu
                 : styles.unselectedNavMenu
                 } ml-5`}
-              variant="light"
-              name="navOrder navSet"
+
               onClick={(event) => this.handeNav1(event)}
             >
               Liquidity
+
             </Button>
             {/* </div> */}
           </div>
@@ -102,7 +174,15 @@ class Landing extends Component {
             className={styles.mainCard1}
           >
             <Card.Body>
-              <h1 className={styles.login}>Liquidity</h1>
+              <h1 className={styles.login}>Liquidity <span
+                className={styles.iconSet}
+                onClick={() => this.setSlip()}
+              >
+                <img src={iconSet} alt="map-pin" />
+              </span>
+                <span className={styles.iconQuest}>
+                  <img src={iconList} alt="map-pin" />
+                </span></h1>
               <p className={styles.subLogin}>Add liquidity to receive LP tokens</p>
               <Button
                 variant="primary"
@@ -121,7 +201,9 @@ class Landing extends Component {
                   <p>Your Liquidity</p>
                 </Col>
                 <Col>
-                  <p>icon</p>
+                  <span className={styles.iconQuest}>
+                    <img src={iconQuest} alt="map-pin" title="When you add liquidity, you are given pool tokens that represent your share.  /n If you don’t see a pool you joined in this list, try importing a pool below." />
+                  </span>
                 </Col>
               </Row>
               <Row>
@@ -141,6 +223,7 @@ class Landing extends Component {
             </Card.Body>
           </Card>
         </Container>
+        <Footer />
       </>
     );
   }

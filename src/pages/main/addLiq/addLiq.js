@@ -1,38 +1,35 @@
 import React, { Component } from "react";
-import { Button, Card, Col, Row, Container, Form, Alert } from "react-bootstrap";
+import { Button, Card, Col, Row, Container, Form, Modal } from "react-bootstrap";
 import styles from "./addLiq.module.css";
-import Slider from 'react-slick';
-import { Link } from "react-router-dom";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 // import NavbarComponent from "../../../components/Navbar/Navbar";
-import iconSet from "../../../assets/decorations/nut.svg"
 import iconQuest from "../../../assets/decorations/question-circle.svg"
 import iconArrowPlus from "../../../assets/decorations/plus-circle.svg"
 import IconLeft from "../../../assets/decorations/arrow-left.svg"
 import NavbarComponent from "../../../components/Navbar/Navbar";
+import Footer from "../../../components/Footer/Footer"
+import iconArrowBot from "../../../assets/decorations/arrow-down-circle.svg"
 
 //
-import FooterComponent from "../../../components/Footer/Footer";
-
-import Recruiter1 from "../../../assets/images/394260100b438df48a885f4de8255d6c.jpg";
-import Recruiter2 from "../../../assets/images/52b72a55a079dca3c59ba0db0eb236aa.jpg";
-import Recruiter3 from "../../../assets/images/e0330952e672d8d40924c01d226e2f96.jpg";
-
-import DotDecoration from "../../../assets/decorations/dots.svg";
-import HeroImage from "../../../assets/images/hero-img.jpg";
-import LandingImage1 from "../../../assets/images/landing-img.jpg";
-import LandingImage2 from "../../../assets/images/landing-img2.jpg";
-import TickPurple from "../../../assets/icons/tick-purple.svg";
-import TickOrange from "../../../assets/icons/tick-orange.svg";
-
 class Landing extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      coin: [
+        "BTCB",
+        "BUSD",
+        "Cake",
+        "CMD",
+        "DOGE",
+        "ETH",
+        "TRX",
+        "USDT"
+      ],
       isLanding: true,
       navSet: true,
+      showModal1: false,
       navOrder: false,
       form: {
         user: "",
@@ -52,6 +49,16 @@ class Landing extends Component {
   changeText = (event) => {
     this.setState({ [event.target.name]: "%" + event.target.value + "%" });
   };
+  setCoin = () => {
+    this.setState({
+      showModal1: true,
+    });
+  };
+  handleClose = () => {
+    this.setState({
+      showModal1: false,
+    });
+  };
   goback = () => {
     this.props.history.goBack();
   }
@@ -65,17 +72,48 @@ class Landing extends Component {
     });
   };
   render() {
-    const settings = {
-      dots: true,
-      autoplay: true,
-      infinite: true,
-      slidesToShow: 3,
-      slidesToScroll: 1
-    };
+
     const { user } = this.state.form
-    const { navSet, navOrder } = this.state
+    const { navSet, navOrder, showModal1 } = this.state
     return (
       <>
+        <Modal className={styles.modalshow} show={showModal1} onHide={this.handleClose}>
+          <Container >
+            <Modal.Title className={styles.title}>Select a token  <img src={iconQuest} alt="map-pin" title="hehe" />
+            </Modal.Title>
+            <br />
+            <Col >
+              <Form className={styles.searchInput}>
+                <Form.Group>
+                  <Form.Control
+                    type="text"
+                    placeholder="Search Tokens"
+                    name="search"
+                    onChange={(event) => this.changeTextForm(event)}
+                  />
+                </Form.Group>
+              </Form>
+            </Col>
+
+            <Modal.Title className={styles.title}>Token Name
+              <div className={styles.iconArrow}>
+                <span >
+                  <img src={iconArrowBot} alt="map-pin" />
+                </span>
+              </div>
+            </Modal.Title>
+            <hr />
+            <div >
+              {this.state.coin.map((item, index) => {
+                console.log(item)
+                return (
+                  <p> {item}</p>
+                );
+
+              })}
+            </div>
+          </Container>
+        </Modal>
         <NavbarComponent />
         <Container className={styles.main} fluid>
 
@@ -84,8 +122,7 @@ class Landing extends Component {
             <Button
               className={`${styles.info} ${navSet ? styles.selectedNavMenu : styles.unselectedNavMenu
                 }`}
-              variant="light"
-              name="navSet navOrder"
+
               onClick={(event) => this.handeNav(event)}
             >
               Swap
@@ -95,8 +132,7 @@ class Landing extends Component {
                 ? styles.selectedNavMenu
                 : styles.unselectedNavMenu
                 } ml-5`}
-              variant="light"
-              name="navOrder navSet"
+
               onClick={(event) => this.handeNav1(event)}
             >
               Liquidity
@@ -145,13 +181,14 @@ class Landing extends Component {
                         />
                       </Form.Group>
                     </Col>
-                    <Col>
+                    <Col className={styles.buttonCoin}>
                       <Button
                         variant="primary"
                         type="submit"
                         className={styles.btnSubmit}
+                        onClick={() => this.setCoin()}
                       >
-                        Unlock Wallet
+                        Coin
                       </Button>
                     </Col>
                   </Row>
@@ -182,13 +219,14 @@ class Landing extends Component {
 
                       </Form.Group>
                     </Col>
-                    <Col>
+                    <Col className={styles.buttonCoin}>
                       <Button
                         variant="primary"
                         type="submit"
                         className={styles.btnSubmit}
+                        onClick={() => this.setCoin()}
                       >
-                        Unlock Wallet
+                        Coin
                       </Button>
                     </Col>
                   </Row>
@@ -207,6 +245,7 @@ class Landing extends Component {
 
           </Card>
         </Container>
+        <Footer />
       </>
     );
   }

@@ -1,26 +1,7 @@
 import React, { Component } from "react";
-import { Button, Card, Col, Row, Container, Form, Alert, Modal } from "react-bootstrap";
+import { Button, Col, Container, Form, Modal } from "react-bootstrap";
 import styles from "./popupSlipPage.module.css";
-import Slider from 'react-slick';
-import { Link } from "react-router-dom";
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import NavbarComponent from "../../components/Navbar/Navbar";
 
-import iconSet from "../../assets/decorations/nut.svg"
-import iconQuest from "../../assets/decorations/card-list.svg"
-import iconArrowBot from "../../assets/decorations/arrow-down-circle.svg"
-//
-import Recruiter1 from "../../assets/images/394260100b438df48a885f4de8255d6c.jpg";
-import Recruiter2 from "../../assets/images/52b72a55a079dca3c59ba0db0eb236aa.jpg";
-import Recruiter3 from "../../assets/images/e0330952e672d8d40924c01d226e2f96.jpg";
-
-import DotDecoration from "../../assets/decorations/dots.svg";
-import HeroImage from "../../assets/images/hero-img.jpg";
-import LandingImage1 from "../../assets/images/landing-img.jpg";
-import LandingImage2 from "../../assets/images/landing-img2.jpg";
-import TickPurple from "../../assets/icons/tick-purple.svg";
-import TickOrange from "../../assets/icons/tick-orange.svg";
 
 class Landing extends Component {
   constructor(props) {
@@ -32,6 +13,7 @@ class Landing extends Component {
       navOrder: false,
       popSet: true,
       popOrder: false,
+      show: true,
       form: {
         from: "",
         to: "",
@@ -66,21 +48,20 @@ class Landing extends Component {
     this.setState({
       navSet: true,
     });
-    console.log("tol");
   }
+  handleClose = (event) => {
+    this.setState({
+      navSet: false,
+      show: false,
+    });
+  };
   render() {
-    const settings = {
-      dots: true,
-      autoplay: true,
-      infinite: true,
-      slidesToShow: 3,
-      slidesToScroll: 1
-    };
-    const { from, to } = this.state.form
-    const { navSet, navOrder, popSet, popOrder } = this.state
+
+    const { from, } = this.state.form
+    const { show } = this.state
     return (
       <>
-        <Modal show="true" onHide="true">
+        <Modal show={show} onHide={this.handleClose}>
           <Container >
             <Modal.Title className={styles.title}>Setting</Modal.Title>
             <hr />
