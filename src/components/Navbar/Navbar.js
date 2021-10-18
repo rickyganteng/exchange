@@ -1,12 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import { Nav, Navbar, Button, Image, Modal, Form } from "react-bootstrap";
 import logo from "../../assets/img/logo.png";
-import { Search } from "react-bootstrap-icons";
 import styles from "./Navbar.module.css";
-// import ReactPaginate from "react-paginate";
-import dummy from "../../assets/img/icon-defauult.png";
 import { connect } from "react-redux";
 class NavBar extends Component {
   constructor(props) {
@@ -70,9 +66,6 @@ class NavBar extends Component {
 
   render() {
     const { isShow } = this.state;
-    // const { dataMovie } = this.props.movie;
-    // const { data } = this.props.auth;
-    const { isAdminPage } = this.props;
 
     return (
       <>
